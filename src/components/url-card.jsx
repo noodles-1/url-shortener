@@ -10,7 +10,6 @@ import {
 import { 
     Dialog, 
     DialogContent, 
-    DialogDescription, 
     DialogFooter, 
     DialogHeader, 
     DialogTitle, 
@@ -64,7 +63,7 @@ const URLCard = () => {
                             <span> Edit </span>
                         </Button>
                     </DialogTrigger>
-                    <DialogContent className="bg-transparent backdrop-blur-lg">
+                    <DialogContent className="bg-transparent backdrop-blur-xl min-w-[40rem]">
                         <DialogHeader>
                             <DialogTitle> Edit </DialogTitle>
                         </DialogHeader>

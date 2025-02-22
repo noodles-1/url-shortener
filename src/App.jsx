@@ -9,7 +9,10 @@ function App() {
                 <section className="flex flex-col items-center justify-center">
                     <div className="text-[3rem]">
                         <span className="font-bold text-gray-300"> chowlong </span>
-                        <span className="left-[-6px] relative text-[#abafff] font-medium"> .me </span>
+                        <span 
+                            className="left-[-6px] relative font-medium bg-gradient-to-r from-[#abafff] to-[#5868e0] bg-clip-text text-transparent"> 
+                            .me 
+                        </span>
                     </div>
                     <span className="relative top-[-8px] text-gray-400 font-medium"> URL Shortener / Custom URL </span>
                 </section>
