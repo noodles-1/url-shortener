@@ -22,8 +22,6 @@ function App() {
                         <h1 className="text-gray-300 text-[14px] text-center font-bold"> Your custom URLs</h1>
                         <section className="flex flex-col gap-3 max-h-[30dvh] overflow-y-scroll">
                             <URLCard />
-                            <URLCard />
-                            <URLCard />
                         </section>
                     </div>
                 </section>
