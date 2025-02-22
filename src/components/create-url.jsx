@@ -28,7 +28,7 @@ const formSchema = z.object({
     customLink: z
         .string()
         .max(30, { message: "Maximum of 30 characters." })
-        .refine(e => e.length === 0 || !/[`!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/.test(e), {
+        .refine(e => e.length === 0 || !/[`!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?~]/.test(e), {
             message: "URL should only contain letters and numbers."
         }),
     name: z
@@ -64,7 +64,7 @@ const CreateURL = () => {
             <CardContent>
 
                 <Form {...form}>
-                    <form onSubmit={form.handleSubmit(onSubmit)} className="grid grid-rows-2 gap-2 w-[30rem] items-start">
+                    <form onSubmit={form.handleSubmit(onSubmit)} className="grid grid-rows-2 gap-2 items-start">
                         <section className="grid grid-cols-2 gap-4 mt-4 items-start">
                             <FormField
                                 control={form.control}
