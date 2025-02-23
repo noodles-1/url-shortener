@@ -57,7 +57,7 @@ function App() {
                                         animate="visible"
                                         custom={i}
                                     >
-                                        <URLCard url={url} />
+                                        <URLCard key={url.id} url={url} />
                                     </motion.div>
                                 ))}
                             </section>

@@ -11,7 +11,7 @@ const CreateURL = () => {
     const { ip } = useGetIp();
     const queryClient = useQueryClient();
 
-    const onSubmit = async (values, resetField, setGenerating) => {
+    const onSubmit = async (values, resetField, setLoading) => {
         const body = {
             ipId: ip,
             name: values.name,
@@ -21,7 +21,7 @@ const CreateURL = () => {
         if (values.customLink.length > 0)
             body.customLink = values.customLink;
 
-        setGenerating(true);
+        setLoading(true);
 
         await fetch(`${SERVER_URL}/urls/create-url`, {
             method: "POST",
@@ -34,13 +34,13 @@ const CreateURL = () => {
         resetField("link");
         resetField("customLink");
         resetField("name");
-        setGenerating(false);
+        setLoading(false);
     };
     
     return (
         <Card className="bg-transparent backdrop-blur-sm">
             <CardContent>
-                <CustomForm onSubmit={onSubmit} />
+                <CustomForm onSubmit={onSubmit} urlData={null} />
             </CardContent>
         </Card>
     );

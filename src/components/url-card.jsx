@@ -10,11 +10,9 @@ import {
 import { 
     Dialog, 
     DialogContent, 
-    DialogFooter, 
     DialogHeader, 
     DialogTitle, 
     DialogTrigger,
-    DialogClose
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 
@@ -28,6 +26,7 @@ const SERVER_URL = import.meta.env.VITE_SERVER_URL;
 const URLCard = ({ url }) => {
     const [copied, setCopied] = useState(false);
     const [deleting, setDeleting] = useState(false);
+    const [open, setOpen] = useState(false);
     const queryClient = useQueryClient();
 
     const handleCopy = async () => {
@@ -72,30 +71,18 @@ const URLCard = ({ url }) => {
                 </span>
             </CardContent>
             <CardFooter className="flex justify-end gap-2">
-                <Dialog>
+                <Dialog open={open} onOpenChange={setOpen}>
                     <DialogTrigger asChild>
                         <Button variant="outline" className="flex gap-2 items-center bg-transparent hover:cursor-pointer hover:text-[#9ba6ff]">
                             <PenLine className="h-[20px] " />
                             <span> Edit </span>
                         </Button>
                     </DialogTrigger>
-                    <DialogContent className="bg-transparent backdrop-blur-xl min-w-[40rem]">
+                    <DialogContent aria-describedby={undefined} className="bg-transparent backdrop-blur-xl min-w-[40rem]">
                         <DialogHeader>
                             <DialogTitle> Edit </DialogTitle>
                         </DialogHeader>
-                        <EditForm />
-                        <DialogFooter className="flex justify-end gap-2">
-                            <DialogClose asChild>
-                                <Button variant="outline" className="bg-transparent hover:cursor-pointer hover:text-destructive">
-                                    Cancel
-                                </Button>
-                            </DialogClose>
-                            <DialogClose asChild>
-                                <Button variant="outline" className="bg-transparent hover:cursor-pointer hover:text-[#9ba6ff]">
-                                    Edit
-                                </Button>
-                            </DialogClose>
-                        </DialogFooter>
+                        <EditForm urlData={url} setOpen={setOpen} />
                     </DialogContent>
                 </Dialog>
                 {!deleting ?
