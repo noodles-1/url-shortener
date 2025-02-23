@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
@@ -12,6 +14,8 @@ import {
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, useWatch } from "react-hook-form";
+
+import { Loader2 } from "lucide-react";
 
 const formSchema = z.object({
     link: z
@@ -36,6 +40,8 @@ const formSchema = z.object({
 });
 
 const CustomForm = ({ onSubmit }) => {
+    const [generating, setGenerating] = useState(false);
+
     const form = useForm({
         resolver: zodResolver(formSchema),
         defaultValues: {
@@ -44,6 +50,8 @@ const CustomForm = ({ onSubmit }) => {
             name: "",
         }
     });
+
+    const { resetField } = form;
 
     const customLinkValue = useWatch({
         control: form.control,
@@ -55,7 +63,7 @@ const CustomForm = ({ onSubmit }) => {
     return (
         <>
             <Form {...form}>
-                <form onSubmit={form.handleSubmit(onSubmit)} className="grid grid-rows-2 gap-2 items-start">
+                <form onSubmit={form.handleSubmit(data => onSubmit(data, resetField, setGenerating))} className="grid grid-rows-2 gap-2 items-start">
                     <section className="grid grid-cols-2 gap-4 mt-4 items-start">
                         <FormField
                             control={form.control}
@@ -114,9 +122,16 @@ const CustomForm = ({ onSubmit }) => {
                                 </FormItem>
                             )}
                         />
-                        <Button type="submit" className="bg-[#37439e] hover:bg-[#313761] hover:cursor-pointer mt-[26px] text-gray-200"> 
-                            Generate URL 
-                        </Button>
+                        {!generating ?
+                            <Button type="submit" className="bg-[#37439e] hover:bg-[#313761] hover:cursor-pointer mt-[26px] text-gray-200"> 
+                                Generate URL 
+                            </Button>
+                        :
+                            <Button disabled className="bg-[#37439e] mt-[26px] text-gray-200"> 
+                                <Loader2 className="h-[20px] animate-spin" />
+                                Generating URL 
+                            </Button>
+                        }
                     </section>
                 </form>
             </Form>

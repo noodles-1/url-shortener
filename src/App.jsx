@@ -1,8 +1,35 @@
 import "@/App.css";
+
+import { Skeleton } from "@/components/ui/skeleton";
+
 import CreateURL from "@/components/create-url";
 import URLCard from "@/components/url-card";
 
+import useGetIp from "@/hooks/use-get-ip";
+import { useQuery } from "@tanstack/react-query";
+
+import * as motion from "motion/react-client";
+
+const SERVER_URL = import.meta.env.VITE_SERVER_URL;
+
+const urlVariants = {
+    hidden: { opacity: 0, y: 10 },
+    visible: (i) => ({
+        opacity: 1,
+        y: 0,
+        transition: { delay: i * 0.2, duration: 0.3 }
+    }),
+};
+
 function App() {
+    const { ip } = useGetIp();
+
+    const { data: urlData } = useQuery({
+        queryKey: ['urlStatus'],
+        queryFn: () => fetch(`${SERVER_URL}/urls/ip/${ip}`).then(res => res.json()),
+        enabled: !!ip,
+    });
+
     return (
         <main className="h-dvh w-screen shadow-[inset_0_0_500px_#000] flex flex-col items-center justify-center">
             <div className="flex flex-col items-center justify-center">
@@ -18,12 +45,25 @@ function App() {
                 </section>
                 <section className="flex flex-col gap-6">
                     <CreateURL />
-                    <div className="flex flex-col gap-4">
-                        <h1 className="text-gray-300 text-[14px] text-center font-bold"> Your custom URLs</h1>
-                        <section className="flex flex-col gap-3 max-h-[30dvh] overflow-y-scroll">
-                            <URLCard />
-                        </section>
-                    </div>
+                    {urlData && urlData.length > 0 &&
+                        <div className="flex flex-col gap-4">
+                            <h1 className="text-gray-300 text-[14px] text-center font-bold"> Your custom URLs</h1>
+                            <section className="flex flex-col gap-3 max-h-[30dvh] overflow-y-scroll">
+                                {urlData.map((url, i) => (
+                                    <motion.div 
+                                        key={i}
+                                        variants={urlVariants}
+                                        initial="hidden"
+                                        animate="visible"
+                                        custom={i}
+                                    >
+                                        <URLCard url={url} />
+                                    </motion.div>
+                                ))}
+                            </section>
+                        </div>
+                    }
+                    {!ip && <Skeleton className="h-16 w-full bg-zinc-800" />}
                 </section>
             </div>
         </main>

@@ -18,11 +18,17 @@ import {
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 
-import { PenLine, Trash, Clipboard, Check } from "lucide-react";
 import EditForm from "@/components/edit-form";
 
-const URLCard = () => {
+import { PenLine, Trash, Clipboard, Check, Loader2 } from "lucide-react";
+import { useQueryClient } from "@tanstack/react-query";
+
+const SERVER_URL = import.meta.env.VITE_SERVER_URL;
+
+const URLCard = ({ url }) => {
     const [copied, setCopied] = useState(false);
+    const [deleting, setDeleting] = useState(false);
+    const queryClient = useQueryClient();
 
     const handleCopy = async () => {
         await navigator.clipboard.writeText("chowlong.me/custom-url");
@@ -30,21 +36,31 @@ const URLCard = () => {
         setTimeout(() => setCopied(false), 2000);
     };
 
+    const handleDelete = async () => {
+        setDeleting(true);
+
+        await fetch(`${SERVER_URL}/urls/delete-url/${url.id}`, {
+            method: "DELETE",
+        });
+
+        queryClient.invalidateQueries(['urlStatus']);
+    };
+
     return (
         <Card className="bg-transparent backdrop-blur-sm text-sm">
             <CardHeader>
-                <CardTitle className="text-sm font-bold"> My custom URL </CardTitle>
+                <CardTitle className="text-sm font-bold"> {url.name} </CardTitle>
             </CardHeader>
             <CardContent>
                 <div className="max-w-[30rem]"> 
                     <span> Redirects to: </span>
-                    <span className="text-[#abafff] line-clamp-1"> www.example.com</span> 
+                    <span className="text-[#abafff] line-clamp-1"> {url.link} </span> 
                 </div>
                 <span 
-                    className="text-gray-400 flex items-center group cursor-pointer w-fit"
+                    className="text-gray-400 flex items-center group cursor-pointer w-fit hover:text-gray-200"
                     onClick={handleCopy}
                 > 
-                    chowlong.me/custom-url
+                    chowlong.me/{url.customLink}
                     {copied ? 
                         <div className="flex items-center text-[#9ba6ff]">
                             <Check className="h-[16px] opacity-0 group-hover:opacity-100" />
@@ -82,10 +98,17 @@ const URLCard = () => {
                         </DialogFooter>
                     </DialogContent>
                 </Dialog>
-                <Button variant="outline" className="flex gap-2 items-center bg-transparent hover:cursor-pointer hover:text-destructive">
-                    <Trash className="h-[20px]" />
-                    <span> Delete </span>
-                </Button>
+                {!deleting ?
+                    <Button variant="outline" onClick={handleDelete} className="flex gap-2 items-center bg-transparent hover:cursor-pointer hover:text-destructive">
+                        <Trash className="h-[20px]" />
+                        <span> Delete </span>
+                    </Button>
+                :
+                    <Button disabled variant="outline" onClick={handleDelete} className="flex gap-2 items-center bg-transparent">
+                        <Loader2 className="h-[20px] animate-spin" />
+                        <span> Deleting </span>
+                    </Button>
+                }
             </CardFooter>
         </Card>
     );
