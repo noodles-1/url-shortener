@@ -29,8 +29,10 @@ const URLCard = ({ url }) => {
     const [open, setOpen] = useState(false);
     const queryClient = useQueryClient();
 
+    const customLink = `${window.location.host}/${url.customLink}`;
+
     const handleCopy = async () => {
-        await navigator.clipboard.writeText("chowlong.me/custom-url");
+        await navigator.clipboard.writeText(customLink);
         setCopied(true);
         setTimeout(() => setCopied(false), 2000);
     };
@@ -59,7 +61,7 @@ const URLCard = ({ url }) => {
                     className="text-gray-400 flex items-center group cursor-pointer w-fit hover:text-gray-200"
                     onClick={handleCopy}
                 > 
-                    chowlong.me/{url.customLink}
+                    {customLink}
                     {copied ? 
                         <div className="flex items-center text-[#9ba6ff]">
                             <Check className="h-[16px] opacity-0 group-hover:opacity-100" />
