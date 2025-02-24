@@ -12,7 +12,7 @@ import {
 function App() {
     return (
         <BrowserRouter>
-            <main className="h-dvh w-screen shadow-[inset_0_0_500px_#000] flex flex-col items-center justify-center">
+            <main className="h-dvh shadow-[inset_0_0_500px_#000] flex flex-col items-center justify-center">
                 <div className="flex flex-col items-center justify-center">
                     <Routes>
                         <Route exact path="/" element={<Home />} />

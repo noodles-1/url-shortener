@@ -31,7 +31,7 @@ const Home = () => {
     return (
         <>
             <section className="flex flex-col items-center justify-center">
-                <div className="text-[3rem]">
+                <div className="text-2xl sm:text-[2rem] lg:text-[3rem]">
                     <span className="font-bold text-gray-300"> chowlong </span>
                     <span 
                         className="left-[-6px] relative font-medium bg-gradient-to-r from-[#abafff] to-[#5868e0] bg-clip-text text-transparent"> 
@@ -45,7 +45,7 @@ const Home = () => {
                 {urlData && urlData.length > 0 &&
                     <div className="flex flex-col gap-4">
                         <h1 className="text-gray-300 text-[14px] text-center font-bold"> Your custom URLs</h1>
-                        <section className="flex flex-col gap-3 max-h-[30dvh] overflow-y-scroll">
+                        <section className="flex flex-col gap-3 max-h-[30dvh] overflow-y-auto">
                             {urlData.map((url, i) => (
                                 <motion.div 
                                     key={i}

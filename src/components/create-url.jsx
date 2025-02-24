@@ -38,7 +38,7 @@ const CreateURL = () => {
     };
     
     return (
-        <Card className="bg-transparent backdrop-blur-sm">
+        <Card className="bg-transparent backdrop-blur-sm mx-4 md:mx-0">
             <CardContent>
                 <CustomForm onSubmit={onSubmit} urlData={null} />
             </CardContent>

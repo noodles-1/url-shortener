@@ -48,7 +48,7 @@ const URLCard = ({ url }) => {
     };
 
     return (
-        <Card className="bg-transparent backdrop-blur-sm text-sm">
+        <Card className="bg-transparent backdrop-blur-sm text-[12px] md:text-sm mx-4 md:mx-0">
             <CardHeader>
                 <CardTitle className="text-sm font-bold"> {url.name} </CardTitle>
             </CardHeader>
@@ -58,7 +58,7 @@ const URLCard = ({ url }) => {
                     <span className="text-[#abafff] line-clamp-1"> {url.link} </span> 
                 </div>
                 <span 
-                    className="text-gray-400 flex items-center group cursor-pointer w-fit hover:text-gray-200"
+                    className="text-gray-400 flex items-center group cursor-pointer md:w-fit hover:text-gray-200"
                     onClick={handleCopy}
                 > 
                     {customLink}
@@ -80,7 +80,7 @@ const URLCard = ({ url }) => {
                             <span> Edit </span>
                         </Button>
                     </DialogTrigger>
-                    <DialogContent aria-describedby={undefined} className="bg-transparent backdrop-blur-xl min-w-[40rem]">
+                    <DialogContent aria-describedby={undefined} className="bg-transparent backdrop-blur-xl md:min-w-[40rem]">
                         <DialogHeader>
                             <DialogTitle> Edit </DialogTitle>
                         </DialogHeader>
