@@ -60,7 +60,7 @@ const Home = () => {
                         </section>
                     </div>
                 }
-                {!ip && <Skeleton className="h-16 w-full bg-zinc-800" />}
+                {!ip && <Skeleton className="h-16 bg-zinc-800 mx-4 md:mx-0" />}
             </section>
         </>
     );

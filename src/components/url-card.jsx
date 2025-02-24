@@ -48,7 +48,7 @@ const URLCard = ({ url }) => {
     };
 
     return (
-        <Card className="bg-transparent backdrop-blur-sm text-[12px] md:text-sm mx-4 md:mx-0">
+        <Card className="bg-transparent backdrop-blur-sm text-[12px] md:text-sm mx-2 md:mx-0">
             <CardHeader>
                 <CardTitle className="text-sm font-bold"> {url.name} </CardTitle>
             </CardHeader>
