@@ -9,8 +9,8 @@ const EditForm = ({ urlData, setOpen }) => {
     const onSubmit = async (values, resetField, setLoading) => {
         const body = {
             id: urlData.id,
-            newName: values.name.includes("https://") ? values.name : "https://" + values.name,
-            newLink: values.link,
+            newName: values.name,
+            newLink: values.link.includes("https://") ? values.link : "https://" + values.link,
         };
 
         if (values.customLink.length > 0)
