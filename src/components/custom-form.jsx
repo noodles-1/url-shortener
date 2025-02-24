@@ -32,7 +32,7 @@ const CustomForm = ({ onSubmit, urlData }) => {
         link: z
             .string()
             .min(1, { message: "Link cannot be empty." })
-            .refine(e => /(https?:\/\/)([a-zA-Z0-9-]+\.)?[a-zA-Z0-9-]+\.[a-zA-Z]{2,}(?:\/[^\s]*)?/.test(e), {
+            .refine(e => /(https?:\/\/)?([a-zA-Z0-9-]+\.)?[a-zA-Z0-9-]+\.[a-zA-Z]{2,}(?:\/[^\s]*)?/.test(e), {
                 message: "Not a valid URL"
             }),
         customLink: z

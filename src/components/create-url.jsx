@@ -14,7 +14,7 @@ const CreateURL = () => {
     const onSubmit = async (values, resetField, setLoading) => {
         const body = {
             ipId: ip,
-            name: values.name,
+            name: values.name.includes("https://") ? values.name : "https://" + values.name,
             link: values.link,
         };
 
