@@ -34,8 +34,7 @@ const CustomForm = ({ onSubmit, urlData }) => {
             .min(1, { message: "Link cannot be empty." })
             .refine(e => /(https?:\/\/)([a-zA-Z0-9-]+\.)?[a-zA-Z0-9-]+\.[a-zA-Z]{2,}(?:\/[^\s]*)?/.test(e), {
                 message: "Not a valid URL"
-            })
-            .transform(e => e.toLowerCase()),
+            }),
         customLink: z
             .string()
             .max(30, { message: "Maximum of 30 characters." })
