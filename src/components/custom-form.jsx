@@ -42,9 +42,16 @@ const CustomForm = ({ onSubmit, urlData }) => {
             .refine(e => e.length === 0 || !/[`!@#$%^&*()_+=[\]{};':"\\|,.<>/?~]/.test(e), {
                 message: "URL should only contain letters and numbers."
             })
+            .refine(e => {
+                if (e.length === 0)
+                    return true;
+                return e !== "not-found";
+            }, {
+                message: "Custom link not allowed."
+            })
             .refine(async (e) => {
                 if (e.length === 0)
-                    return true
+                    return true;
 
                 const response = await fetch(`${SERVER_URL}/urls/custom-link/${e}`);
                 const urlExists = await response.json();
@@ -60,7 +67,7 @@ const CustomForm = ({ onSubmit, urlData }) => {
             })
             .refine(async (e) => {
                 if (e.length === 0)
-                    return true
+                    return true;
 
                 const response = await fetch(`${SERVER_URL}/urls/name-and-ip/${e}/${ip}`);
                 const nameExists = await response.json();
